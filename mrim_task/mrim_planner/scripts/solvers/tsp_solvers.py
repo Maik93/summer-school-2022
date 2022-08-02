@@ -273,8 +273,7 @@ class TSPSolver3D():
             #  - utilize sklearn.cluster.KMeans implementation (https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html)
             #  - after finding the labels, you may want to swap the classes (e.g., by looking at the distance of the UAVs from the cluster centers)
 
-            # TODO: fill 1D list 'labels' of size len(viewpoints) with indices of the robots
-            labels=kmeans.labels
+            labels = kmeans.labels_
 
         ## | -------------------- Random clustering ------------------- |
         else:
