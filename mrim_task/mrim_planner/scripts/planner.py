@@ -28,7 +28,7 @@ class MrimPlanner:
 
         if problem is None:
             rospy.logerr(log_msg)
-            rospy.signal_shutdown(log_msg);
+            rospy.signal_shutdown(log_msg)
             exit(-1)
 
         ## |  load parameters from ROS custom config (mrim_task/mrim_planner/config/custom_config.yaml)  |

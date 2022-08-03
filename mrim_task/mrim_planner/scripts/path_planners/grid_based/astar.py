@@ -72,7 +72,7 @@ class Node:
         b = self.pos[1] - self.goal[1]
         c = self.pos[2] - self.goal[2]
 
-        raise NotImplementedError('[STUDENTS TODO] Heuristic function guiding the state space exploration not implemented. You have to finish it on your own.')
+        return sqrt(a ** 2 + b ** 2 + c ** 2)
 # # #}
 
 # # #{ class AStar
@@ -94,28 +94,25 @@ class AStar():
     def halveAndTest(self, path):
         pt1 = path[0]
         pt2 = path[-1]
-        
+
         if len(path) <= 2:
             return path
 
-        raise NotImplementedError('[STUDENTS TODO] A*: path straightening is not finished. Finish it on your own.')
         # Tips:
         #  - divide the given path by a certain ratio and use this method recursively
 
-        # [STUDENTS TODO] REMOVE
         if self.grid.obstacleBetween(pt1, pt2):
-
-            # [STUDENTS TODO] Replace seg1 and seg2 variables effectively
-            seg1 = path[:1]
-            seg2 = path[1:]
+            path_length_half = len(path) // 2
+            seg1 = path[:path_length_half]
+            seg2 = path[path_length_half:]
 
             seg1.extend(seg2)
             return seg1
-        
+
         return [pt1, pt2]
 
     def generatePath(self, m_start, m_goal):
-        
+
         print("[INFO] A*: Searching for path from [{:.2f}, {:.2f}, {:.2f}] to [{:.2f}, {:.2f}, {:.2f}].".format(m_start[0], m_start[1], m_start[2], m_goal[0], m_goal[1], m_goal[2]))
 
         start = self.grid.metricToIndex(m_start)
@@ -145,7 +142,7 @@ class AStar():
             distance += self.dist(path_m[i - 1], path_m[i])
 
         # keep heading of first point
-        path_m[0] = (path_m[0][0], path_m[0][1], path_m[0][2], m_start[3]) 
+        path_m[0] = (path_m[0][0], path_m[0][1], path_m[0][2], m_start[3])
 
         return path_m, distance
 
@@ -190,7 +187,7 @@ class AStar():
             if time.time() - start_time > self.timeout:
                 print("[ERROR] A*: Timeout limit in searchPath() exceeded ({:.1f} s > {:.1f} s). Ending.".format(time.time() - start_time, self.timeout))
                 return None
-            
+
         return best_node
 
     def neighbors(self, pos):
