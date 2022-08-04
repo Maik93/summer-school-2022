@@ -564,7 +564,7 @@ class TrajectoryUtils():
         pc_vel     = constraint.JointVelocityConstraint(v_lims)
         pc_acc     = constraint.JointAccelerationConstraint(a_lims)
         instance   = algo.TOPPRA([pc_vel, pc_acc], path, parametrizer="ParametrizeConstAccel",
-                                 gridpt_max_err_threshold=1e-5, gridpt_min_nb_points=2 * len(waypoints))
+                                 gridpt_max_err_threshold=1e-5, gridpt_min_nb_points=5 * len(waypoints))
         trajectory = instance.compute_trajectory()
 
         return trajectory

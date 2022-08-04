@@ -10,8 +10,8 @@ tsp:
 # Parameters for path planning
 path_planner:
   timeout: 40.0              # (s) timeout for single start-to-goal planning
-  method: 'astar'              # Method for generating start-to-goal paths: [euclidean, astar, rrt (default), rrtstar]
-  straighten_paths: true    # Path straightening flag (default: false)
+  method: 'astar'            # Method for generating start-to-goal paths: [euclidean, astar, rrt (default), rrtstar]
+  straighten_paths: true     # Path straightening flag (default: false)
 
   # RRT and RRT* method parameters
   rrt:
