@@ -197,7 +197,6 @@ class TrajectoryUtils():
                 subtraj_1 = subtraj[i].point
                 d_space = distEuclidean(subtraj_0, subtraj_1) / subtraj_len
 
-                # [STUDENTS TODO, COMPULSORY] Implement heading interpolation here
                 # Tips:
                 #  - interpolate the heading linearly (create a function of distance between two points of the subpath)
                 #  - do not forget to wrap angle to [-pi, pi) (see/use wrapAngle() in utils.py)
@@ -565,7 +564,7 @@ class TrajectoryUtils():
         pc_vel     = constraint.JointVelocityConstraint(v_lims)
         pc_acc     = constraint.JointAccelerationConstraint(a_lims)
         instance   = algo.TOPPRA([pc_vel, pc_acc], path, parametrizer="ParametrizeConstAccel",
-                                 gridpt_max_err_threshold=1e-3, gridpt_min_nb_points=2*len(waypoints))
+                                 gridpt_max_err_threshold=1e-5, gridpt_min_nb_points=2 * len(waypoints))
         trajectory = instance.compute_trajectory()
 
         return trajectory
