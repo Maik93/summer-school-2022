@@ -179,11 +179,11 @@ class TrajectoryUtils():
 
             # get desired heading change in interval <0, 2pi)
             g_to  = subtraj[-1]
-            d_hdg = wrapAngle(g_to.heading - g_from.heading)
+            d_hdg = wrapAngle(g_to.heading - g_from.heading)  # difference bwt headings
 
             # get initial heading and subtraj length
             hdg_from    = wrapAngle(g_from.heading)
-            subtraj_len = self.getLength(subtraj)
+            subtraj_len = self.getLength(subtraj)  # length of the subtraj. in meters
 
             ## | ----------------------- Interpolate ---------------------- |
 
@@ -195,14 +195,13 @@ class TrajectoryUtils():
 
                 subtraj_0 = subtraj[i - 1].point
                 subtraj_1 = subtraj[i].point
+                d_space = distEuclidean(subtraj_0, subtraj_1) / subtraj_len
 
                 # [STUDENTS TODO, COMPULSORY] Implement heading interpolation here
                 # Tips:
                 #  - interpolate the heading linearly (create a function of distance between two points of the subpath)
-                #  - do not forget to wrap angle to <-pi, pi) (see/use wrapAngle() in utils.py)
-
-                # [STUDENTS TODO] Change variable 'hdg_interp', nothing else
-                hdg_interp = waypoints[0].heading
+                #  - do not forget to wrap angle to [-pi, pi) (see/use wrapAngle() in utils.py)
+                hdg_interp = wrapAngle(hdg_from + d_space * d_hdg)
 
                 # replace heading
                 hdg_from   = hdg_interp
@@ -630,7 +629,7 @@ class TrajectoryUtils():
                 # delay the shorter-trajectory UAV at the start point by sampling period
 
                 delay_t += delay_step
-                rospy.logwarn(f"Collision flag: delay is now {delay_t}")
+                # rospy.logwarn(f"Collision flag: delay is now {delay_t}")
                 # TIP: use function `trajectory.delayStart(X)` to delay a UAV at the start location by X seconds
 
                 # rospy.logwarn(f"Agent {delay_robot_idx} poses: {[el.asList()[0] for el in trajectories[delay_robot_idx].getPoses()[:10]]}")
@@ -638,7 +637,7 @@ class TrajectoryUtils():
 
                 collision_flag, collision_idx = \
                     self.trajectoriesCollide(trajectories[delay_robot_idx], trajectories[nondelay_robot_idx], safety_distance)
-                rospy.logwarn(f"Collision in {collision_idx}")
+                # rospy.logwarn(f"Collision in {collision_idx}")
 
         # # #}
 
